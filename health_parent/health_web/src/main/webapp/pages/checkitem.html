@@ -225,44 +225,22 @@
             },
             //钩子函数，VUE对象初始化完成后自动执行
             created() {
-                this.findAll();
             },
             methods: {
-                //查询所有检查项
-                findAll(){
-                    axios.get("/checkitem/findAll.do").then(res=>{
-                        if (res.data.flag) {
-                            this.dataList=res.data.data;
-                        }else{
-                            this.$message.error(res.data.message);
-                        }
-                    })
-                },
                 //编辑
                 handleEdit() {
                 },
                 //添加
                 handleAdd () {
-                    axios.post("/checkitem/add.do",this.formData).then(res=>{
-                        if (res.data.flag) {
-                            this.dialogFormVisible =false;
-                            this.findAll();
-                        }else{
-                            this.$message.error(res.data.message);
-                        }
-                    })
                 },
                 //分页查询
                 findPage() {
                 },
                 // 重置表单
                 resetForm() {
-                    this.formData={};
                 },
                 // 弹出添加窗口
                 handleCreate() {
-                    this.resetForm();
-                    this.dialogFormVisible =true;
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {

@@ -16,7 +16,7 @@ import java.util.List;
  * @Date: 2021/1/5
  * @Time: 16:18
  */
-@Service
+@Service(interfaceClass = CheckItemService.class)
 public class CheckItemServiceImpl implements CheckItemService {
     @Autowired
     private CheckItemDao checkItemDao;
