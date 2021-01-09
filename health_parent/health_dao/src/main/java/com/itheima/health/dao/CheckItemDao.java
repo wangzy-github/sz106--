@@ -57,9 +57,9 @@ public interface CheckItemDao {
     void deleteById(int id);
 
     /**
-     * 查询检查项是否有关联的检查组
+     * 查询检查项id统计检查组
      *
      * @param id
      */
-    Integer findCheckGroupCheckItem(int id);
+    Integer findCheckGroupCountByCheckItemId(int id);
 }

@@ -17,6 +17,8 @@ public interface MessageConstant {
     static final String ADD_CHECKGROUP_SUCCESS = "新增检查组成功";
     static final String DELETE_CHECKGROUP_FAIL = "删除检查组失败";
     static final String DELETE_CHECKGROUP_SUCCESS = "删除检查组成功";
+    static final String DELETE_SETMEAL_SUCCESS = "删除套餐成功";
+    static final String DELETE_SETMEAL_FAIL = "删除套餐失败";
     static final String QUERY_CHECKGROUP_SUCCESS = "查询检查组成功";
     static final String QUERY_CHECKGROUP_FAIL = "查询检查组失败";
     static final String EDIT_CHECKGROUP_FAIL = "编辑检查组失败";
@@ -37,6 +39,8 @@ public interface MessageConstant {
     static final String DELETE_MEMBER_SUCCESS = "删除会员成功";
     static final String EDIT_MEMBER_FAIL = "编辑会员失败";
     static final String EDIT_MEMBER_SUCCESS = "编辑会员成功";
+    static final String EDIT_SETMEAL_SUCCESS = "编辑套餐成功";
+    static final String EDIT_SETMEAL_FAIL = "编辑套餐失败";
     static final String TELEPHONE_VALIDATECODE_NOTNULL = "手机号和验证码都不能为空";
     static final String LOGIN_SUCCESS = "登录成功";
     static final String VALIDATECODE_ERROR = "验证码输入错误";
@@ -64,5 +68,7 @@ public interface MessageConstant {
     static final String GET_BUSINESS_REPORT_FAIL = "获取运营统计数据失败";
     static final String GET_SETMEAL_LIST_SUCCESS = "查询套餐列表数据成功";
     static final String GET_SETMEAL_LIST_FAIL = "查询套餐列表数据失败";
-    static final String CHECKITEM_IN_USE = "检查项已被检查组使用";
+    static final String CHECKITEM_IN_USE = "有检查组使用了该检查项";
+    static final String CHECKGROUP_IN_USE = "有套餐使用了该检查组";
+    static final String SETMEAL_IN_USE = "有订单使用了该套餐";
 }

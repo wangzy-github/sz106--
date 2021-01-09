@@ -285,24 +285,28 @@
             //编辑
             handleEdit() {
                 axios.post("/checkgroup/edit.do?checkItemIds=" + this.checkitemIds, this.formData).then(res => {
+                    // 提示成功或失败
+                    this.$message({
+                        message: res.data.message,
+                        type: res.data.flag?"success":"error"
+                    })
                     if (res.data.flag) {
-                        this.$message.success(res.data.message);
                         this.dialogFormVisible4Edit = false;
                         this.findPage();
-                    } else {
-                        this.$message.error(res.data.message);
                     }
                 })
             },
             //添加
             handleAdd() {
                 axios.post("/checkgroup/add.do?checkItemIds=" + this.checkitemIds, this.formData).then(res => {
+                    // 提示成功或失败
+                    this.$message({
+                        message: res.data.message,
+                        type: res.data.flag?"success":"error"
+                    })
                     if (res.data.flag) {
-                        this.$message.success(res.data.message);
                         this.dialogFormVisible = false;
                         this.findPage();
-                    } else {
-                        this.$message.error(res.data.message);
                     }
                 })
             },
@@ -314,7 +318,6 @@
                         this.pagination.total = res.data.data.total;
                         // 当前页结果
                         this.dataList = res.data.data.rows;
-                        // this.$message.success(res.data.message);
                     } else {
                         this.$message.error(res.data.message);
                     }
@@ -323,6 +326,7 @@
             // 重置表单
             resetForm() {
                 this.formData = {};
+                this.activeName = 'first';
                 this.checkitemIds = [];
             },
             // 弹出添加窗口
@@ -337,13 +341,13 @@
                     }
                 })
                 //开启添加窗口弹层
-                this.activeName = 'first';
                 this.dialogFormVisible = true;
 
             },
             // 弹出编辑窗口
             handleUpdate(row) {
                 let checkGroupId = row.id;
+                this.resetForm();
                 //根据id查询检查组
                 axios.get("/checkgroup/findById.do?id=" + checkGroupId).then(res => {
                     if (res.data.flag) {
@@ -369,7 +373,6 @@
                     }
                 })
                 //开启编辑窗口弹层
-                this.activeName = 'first';
                 this.dialogFormVisible4Edit = true;
             },
             //切换页码
@@ -385,12 +388,14 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(() => {
-                    axios.get("/checkgroup/delete.do?id=" + checkGroupId).then(res => {
+                    axios.post("/checkgroup/delete.do?id=" + checkGroupId).then(res => {
+                        // 提示成功或失败
+                        this.$message({
+                            message: res.data.message,
+                            type: res.data.flag?"success":"error"
+                        })
                         if (res.data.flag) {
-                            this.$message.success(res.data.message);
                             this.findPage();
-                        } else {
-                            this.$message.error(res.data.message);
                         }
                     })
                 }).catch(() => {

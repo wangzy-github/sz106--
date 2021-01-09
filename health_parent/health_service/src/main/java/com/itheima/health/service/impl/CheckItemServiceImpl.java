@@ -1,4 +1,4 @@
-package com.itheima.health.serivce.impl;
+package com.itheima.health.service.impl;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
@@ -64,7 +64,7 @@ public class CheckItemServiceImpl implements CheckItemService {
     @Transactional
     public void deleteById(int id) throws HealthException{
         // 查询是否关联检查组,有则删除关联
-        if (checkItemDao.findCheckGroupCheckItem(id) > 0) {
+        if (checkItemDao.findCheckGroupCountByCheckItemId(id) > 0) {
             throw new HealthException(MessageConstant.CHECKITEM_IN_USE);
         }
         // 删除检查项

@@ -21,7 +21,7 @@ public interface CheckGroupDao {
     void add(CheckGroup checkGroup);
 
     /**
-     * 建立检查组和检查项的关系
+     * 添加检查项到检查组
      *
      * @param checkGroupId
      * @param checkItemId
@@ -54,12 +54,14 @@ public interface CheckGroupDao {
 
     /**
      * 更新检查组
+     *
      * @param checkGroup
      */
     void update(CheckGroup checkGroup);
 
     /**
-     * 删除检查组合检查项的关联
+     * 删除检查组中的检查项
+     *
      * @param checkGroupId
      */
     void deleteCheckGroupCheckItem(Integer checkGroupId);
@@ -70,4 +72,19 @@ public interface CheckGroupDao {
      * @param id
      */
     void deleteById(int id);
+
+    /**
+     * 查询该检查组id统计套餐
+     *
+     * @param id
+     * @return
+     */
+    Integer findSetMealCountByCheckGroupId(int id);
+
+    /**
+     * 查询所有检查组
+     *
+     * @return
+     */
+    List<CheckGroup> findAll();
 }
