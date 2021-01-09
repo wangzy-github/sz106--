@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @PackageName: com.itheima.health.service.impl
@@ -40,5 +41,10 @@ public class OrderSettingServiceImpl implements OrderSettingService {
                 orderSettingDao.add(orderSetting);
             }
         }
+    }
+
+    @Override
+    public List<Map<String,Integer>> getOrderSettingByMonth(String month) {
+        return orderSettingDao.getOrderSettingByMonth(month+"%");
     }
 }

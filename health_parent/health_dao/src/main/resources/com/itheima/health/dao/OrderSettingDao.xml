@@ -17,4 +17,12 @@
         set number = #{number}
         where orderDate = #{orderDate,jdbcType=DATE}
     </update>
+
+    <select id="getOrderSettingByMonth" parameterType="string" resultType="map">
+        select CAST(DATE_FORMAT(orderdate,'%d') as SIGNED) date,
+	        number,
+	        reservations
+        from t_ordersetting
+        where orderDate like #{month};
+    </select>
 </mapper>

@@ -6,6 +6,7 @@ import com.itheima.health.entity.Result;
 import com.itheima.health.pojo.OrderSetting;
 import com.itheima.health.service.OrderSettingService;
 import com.itheima.health.utils.POIUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @PackageName: com.itheima.health.controller
@@ -56,5 +58,17 @@ public class OrderSettingController {
             e.printStackTrace();
             return new Result(true, MessageConstant.IMPORT_ORDERSETTING_FAIL);
         }
+    }
+
+    /**
+     * 根据月份查询预约信息
+     *
+     * @param month
+     * @return
+     */
+    @GetMapping("/getOrderSettingByMonth")
+    public Result getOrderSettingByMonth(String month){
+        List<Map<String,Integer>> list= orderSettingService.getOrderSettingByMonth(month);
+        return new Result(true,MessageConstant.QUERY_ORDER_SUCCESS,list);
     }
 }

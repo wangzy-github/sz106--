@@ -4,6 +4,7 @@ import com.itheima.health.pojo.OrderSetting;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Another: Wangzy
@@ -33,4 +34,12 @@ public interface OrderSettingDao {
      * @param orderSetting
      */
     void update(OrderSetting orderSetting);
+
+    /**
+     * 根据月份查询预约信息
+     *
+     * @param month
+     * @return
+     */
+    List<Map<String, Integer>> getOrderSettingByMonth(String month);
 }
