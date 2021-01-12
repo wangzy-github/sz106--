@@ -1,6 +1,6 @@
 package com.itheima.health.service.impl;
 
-import com.alibaba.dubbo.common.utils.StringUtils;
+import org.springframework.util.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -89,5 +89,15 @@ public class SetmealServiceImpl implements SetmealService {
     @Override
     public List<String> findImgs() {
         return setmealDao.findImgs();
+    }
+
+    @Override
+    public List<Setmeal> findAll() {
+        return setmealDao.findAll();
+    }
+
+    @Override
+    public Setmeal findDetailById(int id) {
+        return setmealDao.findDetailById(id);
     }
 }

@@ -3,13 +3,11 @@ package com.itheima.health.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.health.constant.MessageConstant;
 import com.itheima.health.entity.Result;
+import com.itheima.health.exception.HealthException;
 import com.itheima.health.pojo.OrderSetting;
 import com.itheima.health.service.OrderSettingService;
 import com.itheima.health.utils.POIUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -39,24 +37,23 @@ public class OrderSettingController {
      * @return
      */
     @PostMapping("/upload")
-    public Result upload(MultipartFile excelFile){
+    public Result upload(MultipartFile excelFile) {
         try {
             List<String[]> strings = POIUtils.readExcel(excelFile);
-            List<OrderSetting> orderSettingList = new ArrayList<>();
-            SimpleDateFormat sdf = new SimpleDateFormat(POIUtils.DATE_FORMAT);
+            List<OrderSetting> orderSettingList = null;
             Date orderDate = null;
             OrderSetting os = null;
             for (String[] dataArr : strings) {
-                orderDate = sdf.parse(dataArr[0]);
+                orderDate = POIUtils.sdf.parse(dataArr[0]);
                 int number = Integer.valueOf(dataArr[1]);
-                os = new OrderSetting(orderDate,number);
+                os = new OrderSetting(orderDate, number);
                 orderSettingList.add(os);
             }
             orderSettingService.add(orderSettingList);
             return new Result(true, MessageConstant.IMPORT_ORDERSETTING_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result(true, MessageConstant.IMPORT_ORDERSETTING_FAIL);
+            return new Result(false, MessageConstant.IMPORT_ORDERSETTING_FAIL);
         }
     }
 
@@ -67,8 +64,20 @@ public class OrderSettingController {
      * @return
      */
     @GetMapping("/getOrderSettingByMonth")
-    public Result getOrderSettingByMonth(String month){
-        List<Map<String,Integer>> list= orderSettingService.getOrderSettingByMonth(month);
-        return new Result(true,MessageConstant.QUERY_ORDER_SUCCESS,list);
+    public Result getOrderSettingByMonth(String month) {
+        List<Map<String, Integer>> list = orderSettingService.getOrderSettingByMonth(month);
+        return new Result(true, MessageConstant.QUERY_ORDER_SUCCESS, list);
+    }
+
+    /**
+     * 预约设置
+     *
+     * @param orderSetting
+     * @return
+     */
+    @PostMapping("/editNumberByDate")
+    public Result editNumberByDate(@RequestBody OrderSetting orderSetting) {
+        orderSettingService.editNumberByDate(orderSetting);
+        return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
     }
 }

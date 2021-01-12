@@ -45,7 +45,7 @@ public interface CheckGroupDao {
     CheckGroup findById(int id);
 
     /**
-     * 根据检查组id查询检查项
+     * 根据检查组id查询检查项id
      *
      * @param id
      * @return

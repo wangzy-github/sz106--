@@ -153,6 +153,30 @@
                 },
 				//预约设置
                 handleOrderSet(day){
+                    this.$prompt('请输入最大可预约数量', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        inputPattern: /^[1-9][0-9]{0,2}$/,
+                        inputErrorMessage: '数量不正确, 数量必须为正整数'
+                    }).then(({ value }) => {
+                        // value就是输入的值
+                        var orderDate = this.formatDate2(day);
+                        // 要提交的数据，必须包含设置日期与数值, submitData后用OrderSetting接收，
+                        // 必须保证submitData中的属性名(key)与OrderSetting实体类中的属性名一致
+                        var submitData = {orderDate: orderDate, number: value}
+                        axios.post('/ordersetting/editNumberByDate.do',submitData).then(res=>{
+                            this.$message({
+                                message: res.data.message,
+                                type: res.data.flag?"success":"error"
+                            })
+                            // 成功则要刷新日历，加载数据即可
+                            if(res.data.flag){
+                                this.getDataByMonth();
+                            }
+                        })
+                    }).catch(() => {
+
+                    });
                 },
 				//上传之前进行文件格式校验
                 beforeUpload(file){
@@ -191,13 +215,13 @@
                         date = new Date(cur);
                     } else {
                         var now = new Date();
-                        var d = new Date(this.formatDate(now.getFullYear(), now.getMonth(), 1));
+                        var d = new Date(this.formatDate(now.getFullYear(), now.getMonth()+1, 1));
                         d.setDate(35);
                         date = new Date(this.formatDate(d.getFullYear(), d.getMonth(), 1));
                     }
                     this.currentDay = date.getDate();
                     this.currentYear = date.getFullYear();
-                    this.currentMonth = date.getMonth() + 1;
+                    this.currentMonth = date.getMonth()+1;
                     this.currentWeek = date.getDay(); // //本月第一天是周几（周日0 周六 6）
                     var today = new Date();
                     this.LocalMonth = today.getMonth() + 1;
@@ -279,6 +303,15 @@
                     var m = month;
                     if (m < 10) m = "0" + m;
                     var d = day;
+                    if (d < 10) d = "0" + d;
+                    return y + "-" + m + "-" + d
+                },
+                // 返回 类似 2020-08-02 格式的字符串
+                formatDate2: function (date) {
+                    var y = date.getFullYear();
+                    var m = date.getMonth() + 1;
+                    if (m < 10) m = "0" + m;
+                    var d = date.getDate();
                     if (d < 10) d = "0" + d;
                     return y + "-" + m + "-" + d
                 }

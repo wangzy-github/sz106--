@@ -27,4 +27,11 @@ public interface OrderSettingService {
      * @return
      */
     List<Map<String,Integer>> getOrderSettingByMonth(String month);
+
+    /**
+     * 预约设置
+     *
+     * @param orderSetting
+     */
+    void editNumberByDate(OrderSetting orderSetting) throws HealthException;
 }

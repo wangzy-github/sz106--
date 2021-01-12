@@ -55,7 +55,7 @@ public class SetmealController {
             //        domain: QiNiuUtils.DOMAIN
             //    }
             //}
-            Map<String,String> map = new HashMap<String,String>();
+            Map<String,String> map = new HashMap<String,String>(2);
             map.put("imgName",filename);
             map.put("domain", QiNiuUtils.DOMAIN);
             return new Result(true, MessageConstant.PIC_UPLOAD_SUCCESS,map);
@@ -87,7 +87,7 @@ public class SetmealController {
     @GetMapping("/findById")
     public Result findById(int id){
         Setmeal setmeal = setmealService.findById(id);
-        Map<String,Object> map =new HashMap<>();
+        Map<String,Object> map =new HashMap<>(2);
         map.put("setmeal",setmeal);
         map.put("domain",QiNiuUtils.DOMAIN);
         return new Result(true,MessageConstant.QUERY_SETMEAL_SUCCESS,map);

@@ -18,6 +18,7 @@ public class POIUtils {
     private final static String xls = "xls";
     private final static String xlsx = "xlsx";
     public final static String DATE_FORMAT = "yyyy/MM/dd";
+    public final static SimpleDateFormat sdf = new SimpleDateFormat(POIUtils.DATE_FORMAT);
     /**
      * 读入excel文件，解析后返回
      * @param file

@@ -37,7 +37,7 @@ public interface SetmealDao {
     Setmeal findById(int id);
 
     /**
-     * 根据id查询套餐中的检查组
+     * 根据id查询套餐中的检查组id
      *
      * @param id
      * @return
@@ -87,4 +87,19 @@ public interface SetmealDao {
      * @return
      */
     List<String> findImgs();
+
+    /**
+     * 查询所有套餐
+     *
+     * @return
+     */
+    List<Setmeal> findAll();
+
+    /**
+     * 根据id获取套餐详情
+     *
+     * @param id
+     * @return
+     */
+    Setmeal findDetailById(int id);
 }
