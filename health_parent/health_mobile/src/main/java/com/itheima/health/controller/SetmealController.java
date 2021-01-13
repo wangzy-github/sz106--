@@ -51,4 +51,17 @@ public class SetmealController {
         setmeal.setImg(QiNiuUtils.DOMAIN + setmeal.getImg());
         return new Result(true, MessageConstant.QUERY_SETMEAL_SUCCESS, setmeal);
     }
+
+    /**
+     * 根据id查询套餐
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/findById")
+    public Result findById(int id) {
+        Setmeal setmeal = setmealService.findById(id);
+        setmeal.setImg(QiNiuUtils.DOMAIN + setmeal.getImg());
+        return new Result(true, MessageConstant.QUERY_SETMEAL_SUCCESS, setmeal);
+    }
 }

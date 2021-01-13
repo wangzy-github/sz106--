@@ -30,7 +30,7 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     @Transactional
-    public void add(Setmeal setmeal, Integer[] checkGroupIds) {
+    public Integer add(Setmeal setmeal, Integer[] checkGroupIds) {
         setmealDao.add(setmeal);
         Integer setmealId = setmeal.getId();
         if (checkGroupIds != null && checkGroupIds.length > 0) {
@@ -38,6 +38,7 @@ public class SetmealServiceImpl implements SetmealService {
                 setmealDao.addSetmealCheckGroup(setmealId, checkGroupId);
             }
         }
+        return setmealId;
     }
 
     @Override

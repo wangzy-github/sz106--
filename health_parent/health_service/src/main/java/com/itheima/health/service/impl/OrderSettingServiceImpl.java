@@ -28,7 +28,7 @@ public class OrderSettingServiceImpl implements OrderSettingService {
     @Override
     public void add(List<OrderSetting> orderSettingList) throws HealthException {
         for (OrderSetting orderSetting : orderSettingList) {
-            this.editNumberByDate(orderSetting);
+            editNumberByDate(orderSetting);
         }
     }
 

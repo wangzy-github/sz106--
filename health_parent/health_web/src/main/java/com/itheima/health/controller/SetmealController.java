@@ -8,8 +8,11 @@ import com.itheima.health.entity.Result;
 import com.itheima.health.pojo.Setmeal;
 import com.itheima.health.service.SetmealService;
 import com.itheima.health.utils.QiNiuUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,6 +32,9 @@ import java.util.UUID;
 public class SetmealController {
     @Reference
     private SetmealService setmealService;
+
+    @Autowired
+    private JedisPool jedisPool;
 
     /**
      * 上传图片
@@ -74,7 +80,14 @@ public class SetmealController {
      */
     @PostMapping("/add")
     public Result add(@RequestBody Setmeal setmeal, Integer[] checkGroupIds){
-        setmealService.add(setmeal,checkGroupIds);
+        Integer setmealId = setmealService.add(setmeal, checkGroupIds);
+        // 添加成功, 生成静态页面
+        Jedis jedis = jedisPool.getResource();
+        String key = "setmeal:static:html";
+        Long currentTimeMillis = System.currentTimeMillis();
+        // zadd setmeal:static:html 时间戳 套餐id|操作符|时间戳
+        jedis.zadd(key, currentTimeMillis.doubleValue(),setmealId+"|1|" + currentTimeMillis);
+        jedis.close();
         return new Result(true,MessageConstant.ADD_SETMEAL_SUCCESS);
     }
 
@@ -115,6 +128,13 @@ public class SetmealController {
     @PostMapping("/edit")
     public Result edit(@RequestBody Setmeal setmeal, Integer[] checkGroupIds){
         setmealService.edit(setmeal,checkGroupIds);
+        // 修改成功, 生成静态页面
+        Jedis jedis = jedisPool.getResource();
+        String key = "setmeal:static:html";
+        Long currentTimeMillis = System.currentTimeMillis();
+        // zadd setmeal:static:html 时间戳 套餐id|操作符|时间戳
+        jedis.zadd(key, currentTimeMillis.doubleValue(),setmeal.getId()+"|1|" + currentTimeMillis);
+        jedis.close();
         return new Result(true,MessageConstant.EDIT_SETMEAL_SUCCESS);
     }
 
@@ -139,6 +159,13 @@ public class SetmealController {
     @PostMapping("/delete")
     public Result delete(int id){
         setmealService.deleteById(id);
+        // 删除成功, 删除静态页面
+        Jedis jedis = jedisPool.getResource();
+        String key = "setmeal:static:html";
+        Long currentTimeMillis = System.currentTimeMillis();
+        // zadd setmeal:static:html 时间戳 套餐id|操作符|时间戳
+        jedis.zadd(key, currentTimeMillis.doubleValue(),id+"|0|" + currentTimeMillis);
+        jedis.close();
         return new Result(true,MessageConstant.DELETE_SETMEAL_SUCCESS);
     }
 }

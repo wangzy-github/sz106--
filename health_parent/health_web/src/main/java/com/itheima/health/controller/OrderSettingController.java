@@ -40,7 +40,7 @@ public class OrderSettingController {
     public Result upload(MultipartFile excelFile) {
         try {
             List<String[]> strings = POIUtils.readExcel(excelFile);
-            List<OrderSetting> orderSettingList = null;
+            List<OrderSetting> orderSettingList = new ArrayList<>();
             Date orderDate = null;
             OrderSetting os = null;
             for (String[] dataArr : strings) {

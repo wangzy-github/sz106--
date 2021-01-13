@@ -27,7 +27,7 @@ public class CleanImgJob {
     /**
      * 每天凌晨4点清理七牛云上多余的图片
      */
-    @Scheduled(cron = "0 0 4 * * ?")
+    // @Scheduled(cron = "0 0 4 * * ?")
     public void cleanImg() {
         log.info("开始执行清理图片");
         List<String> imgIn7Niu = QiNiuUtils.listFile();
