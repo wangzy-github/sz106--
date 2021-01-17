@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.health.dao.OrderDao">
+    <select id="findByCondition" parameterType="order" resultType="order">
+        select * from t_order
+        where member_id=#{memberId}
+            and orderDate=#{orderDate,jdbcType=DATE}
+            and setmeal_id=#{setmealId}
+    </select>
+
+    <insert id="add" parameterType="order" keyProperty="id" useGeneratedKeys="true">
+        insert into t_order (member_id,orderDate,orderType,orderStatus,setmeal_id)
+        values (#{memberId},#{orderDate,jdbcType=DATE},#{orderType},#{orderStatus},#{setmealId});
+    </insert>
+
+    <select id="getOrderNumberByDate" parameterType="string" resultType="int">
+        select count(1) from t_order where orderDate=#{orderDate}
+    </select>
+
+    <select id="getVisitsNumberByDate" parameterType="string" resultType="int">
+        select count(1) from t_order where orderDate=#{orderDate} and orderStatus="已到诊"
+    </select>
+
+    <select id="getOrderNumberBetweenDate" parameterType="string" resultType="int">
+        select count(1) from t_order
+        where orderDate between #{startDate} and #{endDate}
+    </select>
+
+    <select id="getVisitsNumberBetweenDate" parameterType="string" resultType="int">
+        select count(1) from t_order
+        where orderStatus="已到诊" and orderDate between #{startDate} and #{endDate}
+    </select>
+
+    <select id="getHotSetmeal" resultType="map">
+        select
+            s.name,
+            o.setmeal_count,
+            o.setmeal_count/t.total proportion,
+            s.remark
+        from
+            t_setmeal s,
+            (select count(1) total from t_order) as t,
+            (select setmeal_id,count(1) setmeal_count from t_order GROUP BY setmeal_id) as o
+        where s.id = o.setmeal_id
+        ORDER BY o.setmeal_count DESC LIMIT 0,4
+    </select>
+</mapper>

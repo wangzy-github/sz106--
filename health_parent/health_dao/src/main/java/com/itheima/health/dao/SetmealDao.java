@@ -5,6 +5,7 @@ import com.itheima.health.pojo.Setmeal;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Another: Wangzy
@@ -102,4 +103,11 @@ public interface SetmealDao {
      * @return
      */
     Setmeal findDetailById(int id);
+
+    /**
+     * 获取套餐统计信息
+     *
+     * @return
+     */
+    List<Map<String, Object>> getSetmealReport();
 }

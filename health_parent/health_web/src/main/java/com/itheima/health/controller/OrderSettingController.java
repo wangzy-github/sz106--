@@ -3,14 +3,12 @@ package com.itheima.health.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.health.constant.MessageConstant;
 import com.itheima.health.entity.Result;
-import com.itheima.health.exception.HealthException;
 import com.itheima.health.pojo.OrderSetting;
 import com.itheima.health.service.OrderSettingService;
 import com.itheima.health.utils.POIUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +25,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/ordersetting")
 public class OrderSettingController {
+    private static final SimpleDateFormat sdf = new SimpleDateFormat(POIUtils.DATE_FORMAT);
     @Reference
     private OrderSettingService orderSettingService;
 
@@ -44,7 +43,7 @@ public class OrderSettingController {
             Date orderDate = null;
             OrderSetting os = null;
             for (String[] dataArr : strings) {
-                orderDate = POIUtils.sdf.parse(dataArr[0]);
+                orderDate = sdf.parse(dataArr[0]);
                 int number = Integer.valueOf(dataArr[1]);
                 os = new OrderSetting(orderDate, number);
                 orderSettingList.add(os);

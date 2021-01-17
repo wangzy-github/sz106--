@@ -42,4 +42,10 @@ public interface OrderSettingDao {
      * @return
      */
     List<Map<String, Integer>> getOrderSettingByMonth(String month);
+
+    /**
+     * 指定日期新增一条预约
+     * @param orderDate
+     */
+    Integer addByDate(Date orderDate);
 }

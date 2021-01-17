@@ -6,6 +6,7 @@ import com.itheima.health.exception.HealthException;
 import com.itheima.health.pojo.Setmeal;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Another: Wangzy
@@ -82,4 +83,11 @@ public interface SetmealService {
      * @return
      */
     Setmeal findDetailById(int id);
+
+    /**
+     * 获取套餐统计信息
+     *
+     * @return
+     */
+    List<Map<String, Object>> getSetmealReport();
 }

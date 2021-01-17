@@ -25,4 +25,10 @@
         from t_ordersetting
         where orderDate like #{month};
     </select>
+
+    <update id="addByDate" parameterType="date">
+        update t_ordersetting
+        set reservations = reservations+1
+        where orderDate = #{orderDate,jdbcType=DATE} and number>reservations
+    </update>
 </mapper>
