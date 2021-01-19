@@ -51,31 +51,31 @@ public class HealExceptionAdvice {
         return new Result(false, "发生未知错误，操作失败，请联系管理员");
     }
 
-    /**
-     * 密码错误
-     *
-     * @param he
-     * @return
-     */
-    @ExceptionHandler(BadCredentialsException.class)
-    public Result handBadCredentialsException(BadCredentialsException he) {
-        return handleUserPassword();
-    }
-
-    /**
-     * 用户名不存在
-     *
-     * @param he
-     * @return
-     */
-    @ExceptionHandler(InternalAuthenticationServiceException.class)
-    public Result handInternalAuthenticationServiceException(InternalAuthenticationServiceException he) {
-        return handleUserPassword();
-    }
-
-    private Result handleUserPassword() {
-        return new Result(false, "用户名或密码错误");
-    }
+    // /**
+    //  * 密码错误
+    //  *
+    //  * @param he
+    //  * @return
+    //  */
+    // @ExceptionHandler(BadCredentialsException.class)
+    // public Result handBadCredentialsException(BadCredentialsException he) {
+    //     return handleUserPassword();
+    // }
+    //
+    // /**
+    //  * 用户名不存在
+    //  *
+    //  * @param he
+    //  * @return
+    //  */
+    // @ExceptionHandler(InternalAuthenticationServiceException.class)
+    // public Result handInternalAuthenticationServiceException(InternalAuthenticationServiceException he) {
+    //     return handleUserPassword();
+    // }
+    //
+    // private Result handleUserPassword() {
+    //     return new Result(false, "用户名或密码错误");
+    // }
 
     /**
      * 用户没有权限

@@ -39,6 +39,7 @@
         <jedis.version>2.9.0</jedis.version>
         <quartz.version>2.2.1</quartz.version>
         <freemarker.version>2.3.23</freemarker.version>
+        <jasperreports>6.8.0</jasperreports>
     </properties>
     <!-- 依赖管理标签  必须加 -->
     <dependencyManagement>
@@ -217,6 +218,12 @@
                 <artifactId>freemarker</artifactId>
                 <version>${freemarker.version}</version>
             </dependency>
+            <!--PDF报表-->
+            <dependency>
+                <groupId>net.sf.jasperreports</groupId>
+                <artifactId>jasperreports</artifactId>
+                <version>${jasperreports}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -247,5 +254,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
