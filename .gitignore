@@ -1,6 +1,5 @@
 .idea/
 target/
-utils/
 out/
 test/
 .iml

@@ -43,9 +43,9 @@ public class ReportServiceImpl implements ReportService {
         // 本周最后一天
         String sunday = sdf.format(DateUtils.getLastDayOfWeek(today));
         // 本月1号
-        String firstDay4ThisMonth = sdf.format(DateUtils.getFirstDay4ThisMonth());
+        String firstDay4ThisMonth = sdf.format(DateUtils.getLastDayOfThisMonth());
         // 本月最后一天
-        String lastDay4ThisMonth = sdf.format(DateUtils.getLastDay4ThisMonth());
+        String lastDay4ThisMonth = sdf.format(DateUtils.getLastDayOfThisMonth());
 
         //=========会员数据统计
         // 本日新增会员数

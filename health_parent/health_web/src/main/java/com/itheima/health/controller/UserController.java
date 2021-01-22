@@ -2,8 +2,7 @@ package com.itheima.health.controller;
 
 import com.itheima.health.constant.MessageConstant;
 import com.itheima.health.entity.Result;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @GetMapping("/getLoginUsername")
-    public Result getLoginUsername(){
-        // 获取登陆用户的认证信息
-        User loginUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public Result getLoginUsername(Authentication authentication){
+        // 获取登录的用户
+        org.springframework.security.core.userdetails.User user
+                = (org.springframework.security.core.userdetails.User)authentication.getPrincipal();
         // 登陆用户名
-        String username = loginUser.getUsername();
-        System.out.println(username);
+        String username = user.getUsername();
         // 返回给前端
         return new Result(true, MessageConstant.GET_USERNAME_SUCCESS,username);
     }

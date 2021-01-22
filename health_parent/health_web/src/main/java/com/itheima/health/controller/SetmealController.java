@@ -86,7 +86,8 @@ public class SetmealController {
         String key = "setmeal:static:html";
         Long currentTimeMillis = System.currentTimeMillis();
         // zadd setmeal:static:html 时间戳 套餐id|操作符|时间戳
-        jedis.zadd(key, currentTimeMillis.doubleValue(),setmealId+"|1|" + currentTimeMillis);
+        // jedis.zadd(key, currentTimeMillis.doubleValue(),setmealId+"|1|" + currentTimeMillis);
+        jedis.del("setmealList");
         jedis.close();
         return new Result(true,MessageConstant.ADD_SETMEAL_SUCCESS);
     }
@@ -133,7 +134,8 @@ public class SetmealController {
         String key = "setmeal:static:html";
         Long currentTimeMillis = System.currentTimeMillis();
         // zadd setmeal:static:html 时间戳 套餐id|操作符|时间戳
-        jedis.zadd(key, currentTimeMillis.doubleValue(),setmeal.getId()+"|1|" + currentTimeMillis);
+        // jedis.zadd(key, currentTimeMillis.doubleValue(),setmeal.getId()+"|1|" + currentTimeMillis);
+        jedis.del("setmealList", "setmealDetail_" + setmeal.getId());
         jedis.close();
         return new Result(true,MessageConstant.EDIT_SETMEAL_SUCCESS);
     }
@@ -164,7 +166,8 @@ public class SetmealController {
         String key = "setmeal:static:html";
         Long currentTimeMillis = System.currentTimeMillis();
         // zadd setmeal:static:html 时间戳 套餐id|操作符|时间戳
-        jedis.zadd(key, currentTimeMillis.doubleValue(),id+"|0|" + currentTimeMillis);
+        // jedis.zadd(key, currentTimeMillis.doubleValue(),id+"|0|" + currentTimeMillis);
+        jedis.del("setmealList", "setmealDetail_" + id);
         jedis.close();
         return new Result(true,MessageConstant.DELETE_SETMEAL_SUCCESS);
     }

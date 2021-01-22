@@ -57,7 +57,6 @@ public class CheckItemController {
      * @return
      */
     @PostMapping("/findPage")
-    @PreAuthorize("hasAuthority('CHECKITEM_QUERY')")
     public Result findPage(@RequestBody QueryPageBean queryPageBean) {
         PageResult<CheckItem> pageResult = checkItemService.findPage(queryPageBean);
         return new Result(true, MessageConstant.QUERY_CHECKITEM_SUCCESS, pageResult);

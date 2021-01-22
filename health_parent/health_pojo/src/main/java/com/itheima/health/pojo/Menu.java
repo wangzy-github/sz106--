@@ -9,6 +9,7 @@ import java.util.*;
 public class Menu implements Serializable{
     private Integer id;
     private String name; // 菜单名称
+    private String title;
     private String linkUrl; // 访问路径
     private String path;//菜单项所对应的路由路径
     private Integer priority; // 优先级（用于排序）
@@ -17,6 +18,23 @@ public class Menu implements Serializable{
     private Set<Role> roles = new HashSet<Role>(0);//角色集合
     private List<Menu> children = new ArrayList<>();//子菜单集合
     private Integer parentMenuId;//父菜单id
+    private String parentMenuName;//父菜单名称
+
+    public String getParentMenuName() {
+        return parentMenuName;
+    }
+
+    public void setParentMenuName(String parentMenuName) {
+        this.parentMenuName = parentMenuName;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Integer getId() {
         return id;

@@ -7,6 +7,7 @@ import com.itheima.health.entity.QueryPageBean;
 import com.itheima.health.entity.Result;
 import com.itheima.health.pojo.CheckGroup;
 import com.itheima.health.service.CheckGroupService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class CheckGroupController {
      * @return
      */
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('CHECKGROUP_ADD')")
     public Result add(@RequestBody CheckGroup checkGroup, Integer[] checkItemIds) {
         checkGroupService.add(checkGroup, checkItemIds);
         return new Result(true, MessageConstant.ADD_CHECKGROUP_SUCCESS);
@@ -80,6 +82,7 @@ public class CheckGroupController {
      * @return
      */
     @PostMapping("/edit")
+    @PreAuthorize("hasAuthority('CHECKGROUP_EDIT')")
     public Result edit(@RequestBody CheckGroup checkGroup, Integer[] checkItemIds) {
         checkGroupService.edit(checkGroup,checkItemIds);
         return new Result(true,MessageConstant.EDIT_CHECKGROUP_SUCCESS);
@@ -91,6 +94,7 @@ public class CheckGroupController {
      * @return
      */
     @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('CHECKGROUP_DELETE')")
     public Result delete(int id){
         checkGroupService.deleteById(id);
         return new Result(true,MessageConstant.DELETE_CHECKGROUP_SUCCESS);
